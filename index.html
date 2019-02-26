@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/uswtdb_v1_3_20190107_1.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[46.043426671450796,-119.21379521929212],[46.14022902223787,-119.01228400535486]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        var overlay_GoogleHybrid_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+            opacity: 1.0
+        });
+        overlay_GoogleHybrid_0.addTo(map);
+        map.addLayer(overlay_GoogleHybrid_0);
+        function pop_uswtdb_v1_3_20190107_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['case_id'] !== null ? Autolinker.link(String(feature.properties['case_id'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['faa_ors'] !== null ? Autolinker.link(String(feature.properties['faa_ors'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['faa_asn'] !== null ? Autolinker.link(String(feature.properties['faa_asn'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['usgs_pr_id'] !== null ? Autolinker.link(String(feature.properties['usgs_pr_id'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['t_state'] !== null ? Autolinker.link(String(feature.properties['t_state'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['t_county'] !== null ? Autolinker.link(String(feature.properties['t_county'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['t_fips'] !== null ? Autolinker.link(String(feature.properties['t_fips'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['p_name'] !== null ? Autolinker.link(String(feature.properties['p_name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['p_year'] !== null ? Autolinker.link(String(feature.properties['p_year'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['p_tnum'] !== null ? Autolinker.link(String(feature.properties['p_tnum'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['p_cap'] !== null ? Autolinker.link(String(feature.properties['p_cap'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['t_manu'] !== null ? Autolinker.link(String(feature.properties['t_manu'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['t_model'] !== null ? Autolinker.link(String(feature.properties['t_model'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['t_cap'] !== null ? Autolinker.link(String(feature.properties['t_cap'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['t_hh'] !== null ? Autolinker.link(String(feature.properties['t_hh'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['t_rd'] !== null ? Autolinker.link(String(feature.properties['t_rd'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['t_rsa'] !== null ? Autolinker.link(String(feature.properties['t_rsa'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['t_ttlh'] !== null ? Autolinker.link(String(feature.properties['t_ttlh'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['t_conf_atr'] !== null ? Autolinker.link(String(feature.properties['t_conf_atr'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['t_conf_loc'] !== null ? Autolinker.link(String(feature.properties['t_conf_loc'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['t_img_date'] !== null ? Autolinker.link(String(feature.properties['t_img_date'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['t_img_srce'] !== null ? Autolinker.link(String(feature.properties['t_img_srce'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['xlong'] !== null ? Autolinker.link(String(feature.properties['xlong'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ylat'] !== null ? Autolinker.link(String(feature.properties['ylat'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_uswtdb_v1_3_20190107_1_0() {
+            return {
+                pane: 'pane_uswtdb_v1_3_20190107_1',
+                radius: 3.999999999999997,
+                opacity: 1,
+                color: 'rgba(50,87,128,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(72,123,182,1.0)',
+            }
+        }
+        map.createPane('pane_uswtdb_v1_3_20190107_1');
+        map.getPane('pane_uswtdb_v1_3_20190107_1').style.zIndex = 401;
+        map.getPane('pane_uswtdb_v1_3_20190107_1').style['mix-blend-mode'] = 'normal';
+        var layer_uswtdb_v1_3_20190107_1 = new L.geoJson(json_uswtdb_v1_3_20190107_1, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_uswtdb_v1_3_20190107_1',
+            onEachFeature: pop_uswtdb_v1_3_20190107_1,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_uswtdb_v1_3_20190107_1_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_uswtdb_v1_3_20190107_1);
+        map.addLayer(layer_uswtdb_v1_3_20190107_1);
+        setBounds();
+        </script>
+    </body>
+</html>
